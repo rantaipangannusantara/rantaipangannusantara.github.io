@@ -42,7 +42,10 @@
       ['f-nama', 'f-produk', 'f-pesan'].forEach(function (id) { var el = document.getElementById(id); if (!el.value.trim()) { bad.push(el); document.getElementById(id + '-e').classList.remove('hidden'); } });
       if (bad.length) { st.textContent = bad.length + ' kolom perlu diisi.'; bad[0].focus(); return; }
       var v = function (id) { return (document.getElementById(id).value || '').trim(); };
-      var msg = 'Halo PT Rantai Pangan Nusantara, saya ' + v('f-nama') + (v('f-usaha') ? ' dari ' + v('f-usaha') : '') + '. Saya mencari: ' + v('f-produk') + '. Jumlah dan wilayah kirim: ' + v('f-pesan') + '.';
+      var lines = ['Halo PT Rantai Pangan Nusantara,', '', 'Nama: ' + v('f-nama')];
+      if (v('f-usaha')) lines.push('Usaha/instansi: ' + v('f-usaha'));
+      lines.push('Produk yang dicari: ' + v('f-produk'), 'Jumlah dan wilayah kirim: ' + v('f-pesan'));
+      var msg = lines.join('\n');
       st.textContent = 'Membuka WhatsApp…';
       window.open('https://wa.me/' + f.getAttribute('data-wa') + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
     });
